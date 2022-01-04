@@ -53,7 +53,7 @@
     </nav>
 
     <!--Header-->
-    <div class="container py-3">
+    <div class="container py-5">
       <div class="row">
         <div class="col text-center">
           <h1 class="display-1">Marcus Codrescu</h1>
@@ -62,34 +62,49 @@
     </div>
 
     <!--Body-->
-    <div class="container py-3">
-      <div class="row">
-        <div class="col">
-          <img src="profile-pic-1.jpg" class="rounded img-fluid w-75" />
-        </div>
-        <div class="col">
-          <div class="row py-5">
-            <h1>About Me</h1>
+    <div class="container-fluid py-5 bg-light text-center text-sm-start">
+      <div class="container py-3">
+        <div class="row">
+          <div class="col-sm">
+            <img
+              src="profile-pic-1.jpg"
+              class="rounded img-fluid w-75 max-width-1rem pb-5 pb-sm-0"
+            />
           </div>
-          <div class="row py-5">
-            <p>
-              I am an emerging Data Science professional with a passion for
-              Mathematics. On this website you will find updated information
-              about my education, skills, qualifications, and experience.
-            </p>
+          <div class="col-sm">
+            <div class="row pb-5 border-bottom">
+              <h1>About Me</h1>
+            </div>
+            <div class="row py-5">
+              <p class="px-0">
+                I am an emerging Data Science professional with a passion for
+                Mathematics. On this website you will find updated information
+                about my education, skills, qualifications, and experience.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Latest Posts-->
+    <div class="container-fluid py-5">
+      <div class="container">
+        <div class="row">
+          <div class="col d-inline-block">
+            <h1>Latest Posts</h1>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                Filtered API Requests to Knack Using R
+              </li>
+              <li class="list-group-item">From SQL Query to HTML Table</li>
+              <li class="list-group-item">
+                Using R to Determine GPS Locations of Photos
+              </li>
+            </ul>
           </div>
         </div>
       </div>
     </div>
   </body>
-
-  <!--Footer-->
-  <footer class="footer">
-    <div
-      class="container-fluid position-absolute bottom-0"
-      style="background-color: #f0f0f5"
-    >
-      <span class="text-muted">Created by Marcus Codrescu</span>
-    </div>
-  </footer>
 </html>
