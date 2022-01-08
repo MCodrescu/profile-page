@@ -19,44 +19,17 @@
 
   <body>
     <!--Navbar-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container-fluid">
-        <a class="navbar-brand">Marcus Codrescu</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Blog</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Resume</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <nav
+      id="navbar"
+      class="navbar navbar-expand-lg navbar-light bg-light"
+    ></nav>
+    <script src="navbar.js"></script>
 
     <!--Header-->
     <div class="container py-5">
       <div class="row">
         <div class="col text-center">
-          <h1 class="display-1">Marcus Codrescu</h1>
+          <h1 class="display-1 fw-bold">Marcus Codrescu</h1>
         </div>
       </div>
     </div>
@@ -64,20 +37,20 @@
     <!--Body-->
     <div class="container-fluid py-5 bg-light text-center text-sm-start">
       <div class="container py-3">
-        <div class="row">
+        <div class="row gx-5">
           <div class="col-sm">
             <img
               src="profile-pic-1.jpg"
-              class="img-fluid w-75 max-width-1rem pb-5 pb-sm-0"
+              class="img-fluid pb-5 pb-sm-0"
               style="border-radius: 30px"
             />
           </div>
-          <div class="col-sm">
+          <div class="col-sm my-auto">
             <div class="row pb-5 border-bottom">
-              <h1>About Me</h1>
+              <h1 class="fw-light">About Me</h1>
             </div>
             <div class="row py-5">
-              <p class="fs-5 px-0">
+              <p class="fs-5 fw-light px-0">
                 I am an emerging Data Science professional with a passion for
                 Mathematics. On this website you will find updated information
                 about my education, skills, qualifications, and experience.

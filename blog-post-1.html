@@ -29,38 +29,11 @@
 
   <body>
     <!--Navbar-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container-fluid">
-        <a class="navbar-brand">Marcus Codrescu</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Blog</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Resume</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <nav
+      id="navbar"
+      class="navbar navbar-expand-lg navbar-light bg-light"
+    ></nav>
+    <script src="navbar.js"></script>
 
     <!--Header-->
     <div class="container py-5">
@@ -72,44 +45,80 @@
     </div>
 
     <!--Post-->
-    <pre><code class = "language-R">
-library("promises")
-library(knackr)
-library(tidyr)
-library(dplyr)
+    <!--Content-->
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <p>
+            I am personally a huge fan of the Knack Database Software. I used it
+            to create an internal employee portal that tracks data from
+            timesheets, expense reports, invoices, and bills. As an R
+            enthusiast, I have sought ways to remotely access and analyze data
+            stored on Knack using R. The Knack team has made that possible
+            through their API, but the documentation is written in JavaScript
+            and can be difficult to translate into R for those not familiar with
+            HTTP requests and JSON. I posted two articles on the Knack Forum
+            about accessing Knack data using R. You can read about them here. I
+            want to discuss my second post: Sending filtered API Requests to
+            Knack. Suppose you have thousands of records stored on Knack, but
+            you only want to fetch a subset of them to analyze with R. Knack has
+            made that possible through their API, but the documentation is
+            written in JavaScript. I want to share how I translated the
+            JavaScript into R code. You can see below the code that I used to
+            retrieve only records specified within a date range.
+          </p>
+        </div>
+      </div>
+    </div>
 
-set_credentials("61c0f74e19a523001ebd097a",
-                "043bdc89-ec4d-4add-bcbb-bdda171192dd")
-
-data <- read.csv("C://Users//mcodr//Downloads//ACS.csv")
-data <- data[1:20,]
-object <- "object_7"
-
-
-send_data <- function(row) {
-  # Change to JSON
-  data_json <- toJSON(as.list(row), auto_unbox = TRUE)
-  # Post data to knack
-  api_url <-
-    paste0("https://api.knack.com/v1/objects/", object, "/records")
-  future_promise(
-    POST(
-      api_url,
-      add_headers(
-        "X-Knack-Application-Id" = getOption("api_id"),
-        "X-Knack-REST-API-Key" = getOption("api_key"),
-        "Content-Type" = "application/json"
-      ),
-      body = data_json
-    )
-  )
-  
-}
-
-status <- promise_all(promise_map(data.frame(t(data)), send_data))
-status
-
-
-    </code></pre>
+    <!--R Code Snippet-->
+    <div class="container">
+      <div class="row">
+        <div class="col-sm mx-auto px-auto">
+          <pre><code class = "language-R">
+            # Load dependent packages
+            library(jsonlite)
+            library(httr)
+            
+            # Set the api base url
+            api_url <-
+              "https://api.knack.com/v1/objects/object_23/records"
+            
+            # Set boundaries for date range
+            # The date formatting is necessary
+            date_start <- format(as.Date('2021-11-01'), "%m/%d/%Y")
+            date_end <- format(as.Date('2021-11-30'), "%m/%d/%Y")
+            
+            # Set filters
+            # Refer to the Knack Documentation for more details
+            filters <- list(match = "and",
+                            rules = data.frame(
+                              field = "field_170",
+                              operator = c("is after", "is before"),
+                              value = c(date_start, date_end)
+                            ))
+            
+            # Convert filters list to JSON and URL encode
+            filters_string <- toJSON(filters, auto_unbox = TRUE)
+            api_url <-
+              paste0(api_url,
+                     '?rows_per_page=1000&filters=',
+                     URLencode(filters_string))
+            
+            # Send the GET request
+            result <- GET(
+              api_url,
+              add_headers(
+                "X-Knack-Application-Id" = "YOUR APP ID",
+                "X-Knack-REST-API-Key" = "YOUR APP API KEY"
+              )
+            )
+            
+            # Retrieve the result
+            data <- fromJSON(content(result, as = "text"))
+      </code></pre>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
