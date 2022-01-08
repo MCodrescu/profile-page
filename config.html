@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>Identity Platform Quickstart</div>
+    <div id="message">Loading...</div>
+    <script src="https://www.gstatic.com/firebasejs/8.0/firebase.js"></script>
+    <script>
+      var config = {
+        apiKey: "AIzaSyDkA9vORkP7Sf0XsdTjk5avrCM0shEkQFI",
+        authDomain: "graceful-creek-315115.firebaseapp.com",
+      };
+      firebase.initializeApp(config);
+    </script>
+    <script>
+      var email = "mcodrescu@balconesgeotech.com";
+      var password = "Blackcar1997!";
+
+      firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+          document.getElementById("message").innerHTML =
+            "Welcome, " + user.email;
+        } else {
+          document.getElementById("message").innerHTML = "No user signed in.";
+        }
+      });
+
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password)
+        .catch(function (error) {
+          document.getElementById("message").innerHTML = error.message;
+        });
+    </script>
+
+    <a href="#" onclick="signOut();">Sign out</a>
+    <script>
+      signOut = function () {
+        firebase
+          .auth()
+          .signOut()
+          .then(
+            function () {
+              console.log("Signed Out");
+            },
+            function (error) {
+              console.error("Sign Out Error", error);
+            }
+          );
+      };
+    </script>
+  </body>
+</html>
