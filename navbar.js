@@ -24,7 +24,7 @@ let navbar_html = `
           <a class="nav-link" href="#">Resume</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Contact</a>
+          <a class="nav-link" href="contact.html">Contact</a>
         </li>
       </ul>
     </div>
