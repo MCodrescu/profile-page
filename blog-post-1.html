@@ -37,9 +37,9 @@
 
     <!--Header-->
     <div class="container py-5">
-      <div class="row">
-        <div class="col text-center">
-          <h1 class="display-1">Example</h1>
+      <div class="row justify-content-center">
+        <div class="col text-center col-xl-8">
+          <h1 class="display-1">Filtered API Requests to Knack Using R</h1>
         </div>
       </div>
     </div>
@@ -47,25 +47,32 @@
     <!--Post-->
     <!--Content-->
     <div class="container">
-      <div class="row">
-        <div class="col">
+      <div class="row justify-content-center">
+        <div class="col-md-10 col-xl-6">
           <p>
             I am personally a huge fan of the Knack Database Software. I used it
             to create an internal employee portal that tracks data from
-            timesheets, expense reports, invoices, and bills. As an R
-            enthusiast, I have sought ways to remotely access and analyze data
-            stored on Knack using R. The Knack team has made that possible
-            through their API, but the documentation is written in JavaScript
-            and can be difficult to translate into R for those not familiar with
-            HTTP requests and JSON. I posted two articles on the Knack Forum
-            about accessing Knack data using R. You can read about them here. I
-            want to discuss my second post: Sending filtered API Requests to
-            Knack. Suppose you have thousands of records stored on Knack, but
-            you only want to fetch a subset of them to analyze with R. Knack has
-            made that possible through their API, but the documentation is
-            written in JavaScript. I want to share how I translated the
-            JavaScript into R code. You can see below the code that I used to
-            retrieve only records specified within a date range.
+            timesheets, expense reports, invoices, and bills.
+          </p>
+          <p>
+            As an R enthusiast, I have sought ways to remotely access and
+            analyze data stored on Knack using R. The Knack team has made that
+            possible through their API, but the documentation is written in
+            JavaScript and can be difficult to translate into R for those not
+            familiar with HTTP requests and JSON.
+          </p>
+          <p>
+            I posted two articles on the Knack Forum about accessing Knack data
+            using R. You can read about them here. I want to discuss my second
+            post: Sending filtered API Requests to Knack.
+          </p>
+          <p>
+            Suppose you have thousands of records stored on Knack, but you only
+            want to fetch a subset of them to analyze with R. Knack has made
+            that possible through their API, but the documentation is written in
+            JavaScript. I want to share how I translated the JavaScript into R
+            code. You can see below the code that I used to retrieve only
+            records specified within a date range.
           </p>
         </div>
       </div>
@@ -73,50 +80,75 @@
 
     <!--R Code Snippet-->
     <div class="container">
-      <div class="row">
-        <div class="col-sm mx-auto px-auto">
+      <div class="row justify-content-center">
+        <div class="col-md-10 col-xl-6">
           <pre><code class = "language-R">
-            # Load dependent packages
-            library(jsonlite)
-            library(httr)
-            
-            # Set the api base url
-            api_url <-
-              "https://api.knack.com/v1/objects/object_23/records"
-            
-            # Set boundaries for date range
-            # The date formatting is necessary
-            date_start <- format(as.Date('2021-11-01'), "%m/%d/%Y")
-            date_end <- format(as.Date('2021-11-30'), "%m/%d/%Y")
-            
-            # Set filters
-            # Refer to the Knack Documentation for more details
-            filters <- list(match = "and",
-                            rules = data.frame(
-                              field = "field_170",
-                              operator = c("is after", "is before"),
-                              value = c(date_start, date_end)
-                            ))
-            
-            # Convert filters list to JSON and URL encode
-            filters_string <- toJSON(filters, auto_unbox = TRUE)
-            api_url <-
-              paste0(api_url,
-                     '?rows_per_page=1000&filters=',
-                     URLencode(filters_string))
-            
-            # Send the GET request
-            result <- GET(
-              api_url,
-              add_headers(
-                "X-Knack-Application-Id" = "YOUR APP ID",
-                "X-Knack-REST-API-Key" = "YOUR APP API KEY"
-              )
-            )
-            
-            # Retrieve the result
-            data <- fromJSON(content(result, as = "text"))
+      # Load dependent packages
+      library(jsonlite)
+      library(httr)
+
+      # Set the api base url
+      api_url <-
+        "https://api.knack.com/v1/objects/object_23/records"
+
+      # Set boundaries for date range
+      # The date formatting is necessary
+      date_start <- format(as.Date('2021-11-01'), "%m/%d/%Y")
+      date_end <- format(as.Date('2021-11-30'), "%m/%d/%Y")
+
+      # Set filters
+      # Refer to the Knack Documentation for more details
+      filters <- list(match = "and",
+                      rules = data.frame(
+                        field = "field_170",
+                        operator = c("is after", "is before"),
+                        value = c(date_start, date_end)
+                      ))
+
+      # Convert filters list to JSON and URL encode
+      filters_string <- toJSON(filters, auto_unbox = TRUE)
+      api_url <-
+        paste0(api_url,
+                '?rows_per_page=1000&filters=',
+                URLencode(filters_string))
+
+      # Send the GET request
+      result <- GET(
+        api_url,
+        add_headers(
+          "X-Knack-Application-Id" = "YOUR APP ID",
+          "X-Knack-REST-API-Key" = "YOUR APP API KEY"
+        )
+      )
+
+      # Retrieve the result
+      data <- fromJSON(content(result, as = "text"))
       </code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!--Content-->
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-10 col-xl-6">
+          <p>
+            The trick is to make use of the jsonlite package which allows me to
+            convert lists and data frames into JavaScript objects. Then, using
+            the URLencode function from the utils package, we can create the
+            proper API URL to send to Knack and retrieve the desired records.
+          </p>
+          <p>
+            You can perform such filters as retrieving records that contain a
+            certain string, match a certain value, fall within a date range, and
+            many more options. All the possibilities can be found in the Knack
+            Documentation.
+          </p>
+          <p>
+            And that’s it! If you have any questions about how to change the
+            code to suit your specific needs, please feel free to email me a
+            comment. Thank you for reading!
+          </p>
         </div>
       </div>
     </div>
