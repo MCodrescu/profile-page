@@ -85,46 +85,46 @@
       <div class="row justify-content-center">
         <div class="col-md-10 col-xl-6">
           <pre><code class = "language-R">
-      # Load dependent packages
-      library(jsonlite)
-      library(httr)
+# Load dependent packages
+library(jsonlite)
+library(httr)
 
-      # Set the api base url
-      api_url <-
-        "https://api.knack.com/v1/objects/object_23/records"
+# Set the api base url
+api_url &lt;-
+  "https://api.knack.com/v1/objects/object_23/records"
 
-      # Set boundaries for date range
-      # The date formatting is necessary
-      date_start <- format(as.Date('2021-11-01'), "%m/%d/%Y")
-      date_end <- format(as.Date('2021-11-30'), "%m/%d/%Y")
+# Set boundaries for date range
+# The date formatting is necessary
+date_start &lt;- format(as.Date('2021-11-01'), "%m/%d/%Y")
+date_end &lt;- format(as.Date('2021-11-30'), "%m/%d/%Y")
 
-      # Set filters
-      # Refer to the Knack Documentation for more details
-      filters <- list(match = "and",
-                      rules = data.frame(
-                        field = "field_170",
-                        operator = c("is after", "is before"),
-                        value = c(date_start, date_end)
-                      ))
+# Set filters
+# Refer to the Knack Documentation for more details
+filters &lt;- list(match = "and",
+                rules = data.frame(
+                  field = "field_170",
+                  operator = c("is after", "is before"),
+                  value = c(date_start, date_end)
+                ))
 
-      # Convert filters list to JSON and URL encode
-      filters_string <- toJSON(filters, auto_unbox = TRUE)
-      api_url <-
-        paste0(api_url,
-                '?rows_per_page=1000&filters=',
-                URLencode(filters_string))
+# Convert filters list to JSON and URL encode
+filters_string &lt;- toJSON(filters, auto_unbox = TRUE)
+api_url &lt;-
+  paste0(api_url,
+          '?rows_per_page=1000&filters=',
+          URLencode(filters_string))
 
-      # Send the GET request
-      result <- GET(
-        api_url,
-        add_headers(
-          "X-Knack-Application-Id" = "YOUR APP ID",
-          "X-Knack-REST-API-Key" = "YOUR APP API KEY"
-        )
-      )
+# Send the GET request
+result &lt;- GET(
+  api_url,
+  add_headers(
+    "X-Knack-Application-Id" = "YOUR APP ID",
+    "X-Knack-REST-API-Key" = "YOUR APP API KEY"
+  )
+)
 
-      # Retrieve the result
-      data <- fromJSON(content(result, as = "text"))
+# Retrieve the result
+data &lt;- fromJSON(content(result, as = "text"))
       </code></pre>
         </div>
       </div>
