@@ -10,7 +10,7 @@ let latest_post_data = `
                 >
                 Filtered API Requests to Knack Using R
                 </a>
-                <a href="r-blog-post-2.html" class="list-group-item list-group-item-action"
+                <a href="R-Blog-Post-2.html" class="list-group-item list-group-item-action"
                 >From SQL Query to HTML Table</a
                 >
                 <a href="#" class="list-group-item list-group-item-action">
