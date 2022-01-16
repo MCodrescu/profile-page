@@ -15,6 +15,12 @@
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"
     ></script>
+
+    <style>
+      li {
+        margin-bottom: 2px;
+      }
+    </style>
   </head>
 
   <body>
@@ -35,10 +41,10 @@
     </div>
 
     <!--Body-->
-    <div class="container-fluid py-5 bg-light text-center text-sm-start">
+    <div class="container-fluid py-3 text-center text-sm-start">
       <!--Table of Contents-->
-      <div class="row justify-content-center">
-        <div class="pb-5 col-md-10 col-xl-6 border-bottom">
+      <div class="row justify-content-center bg-light">
+        <div class="py-5 col-md-10 col-xl-6 border-bottom">
           <ul class="list-group list-group-flush">
             <a href="#education" class="list-group-item list-group-item-action"
               >Education</a
@@ -56,7 +62,7 @@
         </div>
       </div>
       <!--Education-->
-      <div id="education" class="row justify-content-center pt-5">
+      <div id="education" class="row justify-content-center pt-3 border-bottom">
         <div class="col-md-10 col-xl-6">
           <h1 class="pb-2">Education</h1>
           <p>
@@ -98,7 +104,10 @@
       </div>
 
       <!--Experience-->
-      <div id="experience" class="row justify-content-center pt-5">
+      <div
+        id="experience"
+        class="row justify-content-center pt-3 border-bottom"
+      >
         <div class="col-md-10 col-xl-6">
           <h1 class="pb-2">Experience</h1>
           <p>
@@ -119,8 +128,82 @@
               first financial database.
             </li>
           </ul>
+          <p>
+            <span class="fst-italic fw-bold">Professional Educator</span>
+            <span class="fst-italic">(August 2018 - June 2021)</span>
+          </p>
+          <p>Uplift Education</p>
+          <ul>
+            <li>
+              Taught multiple courses including Algebra, Geometry, Precalculus,
+              and Calculus
+            </li>
+            <li>
+              Developed assessment and learning models that used technology, and
+              developed a curriculum for training other educators to implement
+              in their classrooms. Increased student performance on ACT scores
+              by 20% over the course of a year since implementation of new
+              learning models with technology.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!--Skills and Qualifications-->
+      <div id="skills" class="row justify-content-center pt-3 border-bottom">
+        <div class="col-md-10 col-xl-6">
+          <h1 class="pb-2">Skills and Qualifications</h1>
+          <ul>
+            <li>
+              Data manipulation and visualization:
+              <ul>
+                <li>
+                  <span class="fst-italic">R for Data Science</span> (Shiny,
+                  Plumber API, RMarkdown)
+                </li>
+                <li><span class="fst-italic">SQL</span> (MySQL, PostgreSQL)</li>
+                <li>
+                  <span class="fst-italic">Data Camp Certification</span>
+                  (including packages like ggplot2 for data visualization, dplyr
+                  for data manipulation, and caret for machine learning)
+                </li>
+                <li>
+                  <span class="fst-italic">Microsoft Office</span> (Excel,
+                  PowerPoint, Word, Access)
+                </li>
+              </ul>
+            </li>
+            <li>
+              Data Management: MySQL, Box Drive, AWS Cloud Database, OneDrive,
+              Google Drive, Quickbooks
+            </li>
+            <li>
+              Programming: HTML and CSS for web development, Python
+              Object-Oriented Programming
+            </li>
+            <li>
+              Excellent verbal and written communication skills (Bilingual,
+              Spanish)
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!--Awards, Honors, and Affiliations-->
+      <div id="awards" class="row justify-content-center pt-3">
+        <div class="col-md-10 col-xl-6">
+          <h1 class="pb-2">Awards, Honors, and Affiliations</h1>
+          <ul>
+            <li>Rookie Teacher of the Year, 2019</li>
+            <li>texas Teaching Certificate</li>
+            <li>Americorps Service Member Alumni</li>
+            <li>UTSA Summer Exchange Program in China (Leader)</li>
+          </ul>
         </div>
       </div>
     </div>
   </body>
+  <!--Footer-->
+  <footer id="footer" class="footer"></footer>
+  <script src="footer.js"></script>
 </html>
