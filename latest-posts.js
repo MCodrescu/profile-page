@@ -13,7 +13,7 @@ let latest_post_data = `
                 <a href="R-Blog-Post-1.html" class="list-group-item list-group-item-action"
                 >From SQL Query to HTML Table</a
                 >
-                <a href="#" class="list-group-item list-group-item-action">
+                <a href="R-Blog-Post-3.html" class="list-group-item list-group-item-action">
                 Using R to Determine GPS Locations of Photos
                 </a>
             </ul>
