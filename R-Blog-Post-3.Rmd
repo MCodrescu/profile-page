@@ -1,0 +1,95 @@
+---
+title: "Using R to Determine GPS Location of Photos"
+author: "Marcus Codrescu"
+date: "11/02/2021"
+output: 
+  prettydoc::html_pretty:
+    theme: cayman
+---
+
+I recently was given the task of finding the GPS Latitude and Longitude coordinates for a file of about 60 photos. I already knew that it was possible to copy and paste the photos into a website online and have the website extract the EXIF data from the photo, but having to drag and drop every single photo was a slow process.
+
+Being a prolific R user, I knew someone must have a created a package to extract EXIF data from a photo and sure enough someone has!
+
+The exifr package by Phil Harvey is an excellent tool for doing exactly what I wanted to do. You can read the documentation [here](https://www.rdocumentation.org/packages/exifr/versions/0.3.2).
+
+First thing to do is install the package from CRAN.
+
+```{r eval = FALSE}
+install.packages("exifr")
+```
+
+
+```{r echo=FALSE}
+library(knitr)
+
+kable(data.frame(
+  .function = c("configure_exiftool",
+                "configure_exiftool_reset",
+                "configure_perl",
+                "exiftool_call",
+                "exiftool_command",
+                "exiftool_version",
+                "read_exif"),
+  description = c("Configure perl, ExifTool",
+                  "Configure perl, ExifTool",
+                  "Configure perl, ExifTool",
+                  "Call exiftool from R",
+                  "Call exiftool from R",
+                  "Call exiftool from R",
+                  "Read EXIF data from files")
+), col.names = c("Function", "Description"))
+```
+
+You’ll notice right away that the main function for reading the EXIF data from images is `read_exif`. It takes a character string of file locations and reads the data from them.
+
+You should know that it requires perl to be installed on your computer. You can install it [here](https://strawberryperl.com/) and configure it using the `configure_exiftool` or `configure_perl` functions.
+
+Once I got perl configured, I created a character vector called `files` that held just the names of 60 image files.
+
+```{r include = FALSE}
+path <-
+  "C://Users//mcodr//Box//Projects//0119-075 Red Bud Trail Bridge Replacement//Geologic Info//RAR site photos_20211028"
+
+```
+
+
+```{r message=FALSE, warning=FALSE}
+library(exifr)
+
+# Configure perl
+configure_exiftool(perl_path="C://Strawberry//perl//bin//perl.exe")
+
+# Create a character vector of the file paths
+files <- list.files(path = path, pattern = "*.JPEG")
+```
+
+```{r include = FALSE}
+file_names <- files[1:5]
+files <- sapply(files, function(x){paste0(path,"//",x)})[1:5]
+```
+
+
+You’ll notice that I used a regular expression (*.JPEG) to get only the files that were images.
+
+At this point, I was ready to use the `read_exif` function to extract the data from the files. I specified which content I was interested in using the tags parameter. If you don’t specify the tags, then the function will take much longer to run because it collects 130 different data points!
+
+```{r}
+# Read the files
+data_gps <-
+  read_exif(files, tags = c("SourceFile", "GPSLatitude", "GPSLongitude"))
+
+# Rename values of first column
+data_gps[,1] <- file_names
+
+# Display a table
+kable(data_gps)
+```
+
+Now I had the data I was interested in! All I had to do next was get the coordinates into Google Earth and share the .kmz file with my coworker. I did this easily by saving the data as a csv file and opening it in Google Earth. You can read about how to do that [here](https://support.google.com/earth/answer/176685?hl=en).
+
+```{r eval = FALSE}
+write.csv(data_gps, "C://Users//mcodr//Downloads//imageLocations.csv")
+```
+
+And that’s it! Let me know if you enjoyed reading this post or if you have any questions!
