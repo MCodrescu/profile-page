@@ -1,0 +1,147 @@
+---
+title: "Setting Up a Plumber API on Ubuntu"
+author: "Marcus Codrescu"
+date: "1/16/2022"
+output: 
+  prettydoc::html_pretty:
+    theme: cayman
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+opts_chunk$set(echo = TRUE, eval = FALSE)
+```
+
+### Introduction
+
+In this article I will go over how to set up and run a Plumber API from scratch. Plumber is an R package that allows for R code to run on a server and connect to the internet via a REST API. Let's go over the steps of how to set one up.
+
+First, choose a cloud hosting provider and spin up a virtual instance of Ubuntu 20.04. I am going to be using [AWS LightSail](https://aws.amazon.com/lightsail/) in this article, but the same steps will work on [AWS EC2](https://aws.amazon.com/ec2/), [Google Cloud](https://cloud.google.com/), [Azure](https://azure.microsoft.com/en-us/), [Digital Ocean](https://www.digitalocean.com/), or any other Virtual Cloud Provider. I like AWS LightSail because it has an easy interface and the first three months are free. Keep in mind that you will need at least 1 GB of RAM on your server to install the Plumber package without fatal errors.
+
+### Installing Base R
+
+Once we have access to the command line, we will need to install the R base package. I am going to follow the steps in this Digital Ocean Article: [How to Install R on Ubuntu](https://www.digitalocean.com/community/tutorials/how-to-install-r-on-ubuntu-20-04).
+
+```{bash}
+# Get the most recent version of R from CRAN
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+
+sudo add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/'
+
+# Update and install
+sudo apt update
+
+sudo apt install r-base
+
+sudo -i R
+
+```
+
+The steps above should take a minute or so to install. The last command should open up the R terminal letting you know that R was installed successfully.
+
+### Installing the Necessary Ubuntu Packages
+
+The next step is to install the Ubuntu packages necessary for the Plumber package to work. I figured out these were the necessary packages with help from this [Stack Overflow Post](https://stackoverflow.com/questions/68992346/trying-to-get-tidyverse-installed-in-linux-mint-20-2) and a bit of trial and error. Run the following commands from the Ubuntu command line.
+
+```{bash}
+sudo apt-get install libcurl4-openssl-dev
+
+sudo apt-get install libssl-dev
+
+sudo apt-get install libxml2-dev
+
+sudo apt-get install libsodium-dev
+```
+
+### Installing and Running Plumber
+
+Now we can open the R terminal and install the Plumber package.
+
+```{r}
+# In the R terminal
+install.packages("plumber")
+```
+
+Installing the plumber package may take 5 minutes or more. Once it finishes, type `library(plumber)` to see if the package was successfully installed. If you get no response, then you know it worked!
+
+Now, let's create an example plumber file to run on our server. On the Ubuntu command line, run the following command.
+
+```{bash}
+sudo nano plumber.R
+```
+
+This should open up a code editor where you can copy and paste the following R plumber code.
+
+```{r}
+#* Example plumber API
+#* @get /
+function(){
+  paste("Today's date is:",Sys.Date())
+}
+```
+
+Save the file and exit the code editor. Go back to the R terminal and entering the following code. (Note: The exact location of your plumber.R file may not be '/home/ubuntu/plumber.R'. You will need to figure out the direction of the root directory by typing `pwd` on the command line putting that instead.)
+
+```{r}
+plumber::pr('/home/ubuntu/plumber.R') %>% pr_run(host = '0.0.0.0', port = 80)
+```
+
+You can now enter the public IP4 address of your web server and see it respond with today's date!
+
+### A Note on Networking
+
+If you try going to the public IP4 address and it doesn't work, then you need to make sure your firewall allows HTTP traffic to port 80 from anywhere on the internet. Amazon LightSail has this preconfigured, but you may need to read the documentation of your respective web server provider to figure how to make that happen.
+
+### Setting Up Plumber to Run in the Background
+
+So, what happens when we close the terminal? Does the API continue running? If we try closing the command line terminal, then accessing the API from the browser again won't work. This is because we actually stop the running processes when we exit the session. There are a few ways to solve this issue, but I want to highlight the method provided on the [Plumber Website](https://www.rplumber.io/articles/hosting.html#systemd). 
+
+We can run the Plumber API in the background using `systemd`. Here are the steps to set it up.
+
+1.  Run `sudo nano /etc/systemd/system/plumber-api.service`, then paste this content. (Note: Make sure to edit the ExecStart and WorkingDirectory to match your system. See earlier note on Installing and Running Plumber)
+
+```{bash}
+[Unit]
+Description=Plumber API
+
+[Service]
+ExecStart=sudo -i R -e "plumber::pr('/home/ubuntu/plumber.R') %>% pr_run(port=80, host='0.0.0.0')"
+Restart=on-abnormal
+WorkingDirectory=/home/ubuntu
+
+[Install]
+WantedBy=multi-user.target
+```
+
+
+2.  Activate the service and start it.
+
+```{bash}
+sudo systemctl enable plumber-api
+
+sudo systemctl start plumber-api   
+```
+
+To check if your API is running, type `sudo systemctl status plumber-api`. You should see a status message that it is running. You can now access the API by navigating to the IP4 address of your server.
+
+### Making Changes to the Plumber API
+
+If at any point you make changes to the `plumber.R` file, you will need to stop, reload, and start the plumber-api system. You can do that by typing the following:
+
+```{bash}
+# Stop the plumber-api service
+sudo systemctl stop plumber-api
+
+# Reload the service
+sudo systemctl daemon-reload
+
+# Start the service again
+sudo systemctl start plumber-api
+```
+
+And that's it! Let me know if you have any questions. Happy coding!
+
+
+
+
+

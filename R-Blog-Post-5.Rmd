@@ -1,0 +1,23 @@
+---
+title: "Setting Up a Shiny Server with Docker"
+author: "Marcus Codrescu"
+date: "1/18/2022"
+output: 
+  prettydoc::html_pretty:
+    theme: cayman
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+opts_chunk$set(echo = TRUE, eval = FALSE)
+```
+
+### Introduction
+
+I recently learned how to use Docker Containers and it was an incredible discovery! Docker containers are a brilliant way of setting up and running applications super fast. You can create a Docker container using an official image as a starting point (images are like pre-built containers), modify it to your liking, then save it as a new image. You can then deploy your image almost anywhere with just a few lines of code!
+
+Let's say for example that you want to build a Plumber API. You can follow all the steps I listed in my previous blog post, [Setting Up a Plumber API on Ubuntu](/R-Blog-Post-4.html), and install everything on the host machine, or you can simply set up Docker and use an already constructed Plumber API container!
+
+### How Does it Work?
+
+
