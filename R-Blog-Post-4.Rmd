@@ -83,7 +83,9 @@ function(){
 Save the file and exit the code editor. Go back to the R terminal and entering the following code. (Note: The exact location of your plumber.R file may not be '/home/ubuntu/plumber.R'. You will need to figure out the direction of the root directory by typing `pwd` on the command line putting that instead.)
 
 ```{r}
-plumber::pr('/home/ubuntu/plumber.R') %>% pr_run(host = '0.0.0.0', port = 80)
+library(plumber)
+
+pr('/home/ubuntu/plumber.R') %>% pr_run(host = '0.0.0.0', port = 80)
 ```
 
 You can now enter the public IP4 address of your web server and see it respond with today's date!
@@ -105,7 +107,7 @@ We can run the Plumber API in the background using `systemd`. Here are the steps
 Description=Plumber API
 
 [Service]
-ExecStart=sudo -i R -e "plumber::pr('/home/ubuntu/plumber.R') %>% pr_run(port=80, host='0.0.0.0')"
+ExecStart=sudo -i R -e "library(plumber);pr('/home/ubuntu/plumber.R') %>% pr_run(port=80, host='0.0.0.0')"
 Restart=on-abnormal
 WorkingDirectory=/home/ubuntu
 

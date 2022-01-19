@@ -394,7 +394,7 @@
         <div class="sourceCode" id="cb6">
           <pre
             class="sourceCode r"
-          ><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>plumber<span class="sc">::</span><span class="fu">pr</span>(<span class="st">&#39;/home/ubuntu/plumber.R&#39;</span>) <span class="sc">%&gt;%</span> <span class="fu">pr_run</span>(<span class="at">host =</span> <span class="st">&#39;0.0.0.0&#39;</span>, <span class="at">port =</span> <span class="dv">80</span>)</span></code></pre>
+          ><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plumber)<br><br><span class="fu">pr</span>(<span class="st">&#39;/home/ubuntu/plumber.R&#39;</span>) <span class="sc">%&gt;%</span> <span class="fu">pr_run</span>(<span class="at">host =</span> <span class="st">&#39;0.0.0.0&#39;</span>, <span class="at">port =</span> <span class="dv">80</span>)</span></code></pre>
         </div>
         <p>
           You can now enter the public IP4 address of your web server and see it
@@ -446,7 +446,7 @@
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="va">Description</span><span class="op">=</span>Plumber <span class="ex">API</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="ex">[Service]</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="va">ExecStart</span><span class="op">=</span>sudo <span class="ex">-i</span> R <span class="at">-e</span> <span class="st">&quot;plumber::pr(&#39;/home/ubuntu/plumber.R&#39;) %&gt;% pr_run(port=80, host=&#39;0.0.0.0&#39;)&quot;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="va">ExecStart</span><span class="op">=</span>sudo <span class="ex">-i</span> R <span class="at">-e</span> <span class="st">&quot;library(plumber);pr(&#39;/home/ubuntu/plumber.R&#39;) %&gt;% pr_run(port=80, host=&#39;0.0.0.0&#39;)&quot;</span></span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="va">Restart</span><span class="op">=</span>on-abnormal</span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="va">WorkingDirectory</span><span class="op">=</span>/home/ubuntu</span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
