@@ -1,91 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Home Page</title>
-    <!--Bootsrap 5-->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-      crossorigin="anonymous"
-    ></script>
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-4BML4FQ1DM"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Home Page</title>
+  <!--Bootsrap 5-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
 
-      gtag("config", "G-4BML4FQ1DM");
-    </script>
-  </head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4BML4FQ1DM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
 
-  <body>
-    <!--Navbar-->
-    <nav
-      id="navbar"
-      class="navbar navbar-expand-lg navbar-light bg-light"
-    ></nav>
-    <script src="navbar.js"></script>
+    gtag("config", "G-4BML4FQ1DM");
+  </script>
+</head>
 
-    <!--Header-->
-    <div class="container py-5">
-      <div class="row">
-        <div class="col text-center">
-          <h1 class="display-1 fw-bold">Marcus Codrescu</h1>
-        </div>
+<body>
+  <!--Navbar-->
+  <nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light"></nav>
+  <script src="navbar.js"></script>
+
+  <!--Header-->
+  <div class="container py-5">
+    <div class="row">
+      <div class="col text-center">
+        <h1 class="display-1 fw-bold">Marcus Codrescu</h1>
       </div>
     </div>
+  </div>
 
-    <!--Body-->
-    <div
-      class="container-fluid pb-0 pt-5 py-sm-5 bg-light text-center text-sm-start"
-    >
-      <div class="container py-3">
-        <div class="row gx-5">
-          <div class="col-sm">
-            <img
-              src="profile-pic-1.jpg"
-              class="img-fluid pb-sm-0"
-              style="border-radius: 30px"
-            />
+  <!--Body-->
+  <div class="container-fluid pb-0 pt-5 py-sm-5 bg-light text-center text-sm-start">
+    <div class="container py-3">
+      <div class="row gx-5">
+        <div class="col-sm">
+          <img src="profile-pic-1.jpg" class="img-fluid pb-sm-0" style="border-radius: 30px" />
+        </div>
+        <div class="col-sm my-auto">
+          <div class="row py-5 border-bottom">
+            <h1 class="fw-light">About Me</h1>
           </div>
-          <div class="col-sm my-auto">
-            <div class="row py-5 border-bottom">
-              <h1 class="fw-light">About Me</h1>
-            </div>
-            <div class="row py-5">
-              <p class="fs-5 fw-light px-0">
-                I am an emerging Data Science professional with a passion for
-                Mathematics. On this website you will find updated information
-                about my education, skills, qualifications, and experience.
-              </p>
-            </div>
+          <div class="row py-5">
+            <p class="fs-5 fw-light px-0">
+              Data Analytics professional with a passion for
+              Mathematics. On this website you will find information
+              about my education, skills, qualifications, and experience.
+            </p>
           </div>
         </div>
       </div>
     </div>
+  </div>
+</body>
 
-    <!--Latest Posts-->
-    <div class="container">
-      <div class="row">
-        <div id="latest-posts" class="col d-inline-block"></div>
-      </div>
-    </div>
-    <script src="latest-posts.js"></script>
-  </body>
 </html>
